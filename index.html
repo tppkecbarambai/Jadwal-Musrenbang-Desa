@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jadwal Musrenbang Desa Se-Kecamatan Barambai 2026</title>
+  <meta name="description" content="Jadwal Musrenbang Desa Tahun 2026 se-Kecamatan Barambai. Data real-time dari Google Sheet.">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif']
+          },
+          colors: {
+            primary: {
+              50: '#f0f9ff', 100: '#e0f2fe', 200: '#bae6fd', 300: '#7dd3fc',
+              400: '#38bdf8', 500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1',
+              800: '#075985', 900: '#0c4a6e'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Inter Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    .glass {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .dark .glass {
+      background: rgba(17, 24, 39, 0.7);
+    }
+    @media print {
+      .no-print { display: none !important; }
+      body { background: white !important; color: black !important; }
+      .glass, .dark .glass { background: white !important; backdrop-filter: none; }
+      .shadow-lg, .shadow-md { box-shadow: none !important; }
+      .bg-gradient-to-br { background: white !important; }
+    }
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    .dark ::-webkit-scrollbar-thumb { background: #475569; }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-950 text-slate-800 dark:text-slate-100 min-h-screen transition-colors duration-300">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 glass border-b border-slate-200/50 dark:border-slate-700/50 no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center gap-3">
+          <div class="p-2 bg-primary-600 rounded-lg text-white">
+            <i data-lucide="calendar-days" class="w-5 h-5"></i>
+          </div>
+          <div class="hidden sm:block">
+            <h1 class="text-lg font-semibold leading-tight">Jadwal Musrenbang Desa 2026</h1>
+            <p class="text-xs text-slate-500 dark:text-slate-400">Kecamatan Barambai</p>
+          </div>
+          <div class="sm:hidden">
+            <h1 class="text-base font-semibold">Musrenbang 2026</h1>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <a href="https://tppkecamatanbarambai.blogspot.com/" target="_blank" rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-all duration-200 shadow-md hover:shadow-lg">
+            <i data-lucide="external-link" class="w-4 h-4"></i>
+            <span class="hidden md:inline">Branch TPP Barambai</span>
+          </a>
+          <button id="themeToggle" class="p-2 rounded-lg bg-white/50 dark:bg-slate-800/50 hover:bg-white dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 transition-colors">
+            <i data-lucide="sun" class="w-5 h-5 block dark:hidden"></i>
+            <i data-lucide="moon" class="w-5 h-5 hidden dark:block"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+    <!-- Total Daftar Hadir -->
+    <section class="mb-6">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="glass rounded-2xl p-5 shadow-lg border border-slate-200/50 dark:border-slate-700/50">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm text-slate-500 dark:text-slate-400">Total Laki-laki</p>
+              <p id="totalL" class="text-3xl font-bold text-primary-600 dark:text-primary-400">0</p>
+            </div>
+            <div class="p-3 bg-blue-100 dark:bg-blue-900/40 rounded-xl">
+              <i data-lucide="users" class="w-6 h-6 text-blue-600 dark:text-blue-400"></i>
+            </div>
+          </div>
+        </div>
+        <div class="glass rounded-2xl p-5 shadow-lg border border-slate-200/50 dark:border-slate-700/50">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm text-slate-500 dark:text-slate-400">Total Perempuan</p>
+              <p id="totalP" class="text-3xl font-bold text-pink-600 dark:text-pink-400">0</p>
+            </div>
+            <div class="p-3 bg-pink-100 dark:bg-pink-900/40 rounded-xl">
+              <i data-lucide="users" class="w-6 h-6 text-pink-600 dark:text-pink-400"></i>
+            </div>
+          </div>
+        </div>
+        <div class="glass rounded-2xl p-5 shadow-lg border border-slate-200/50 dark:border-slate-700/50">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm text-slate-500 dark:text-slate-400">Total Keseluruhan</p>
+              <p id="totalAll" class="text-3xl font-bold text-emerald-600 dark:text-emerald-400">0</p>
+            </div>
+            <div class="p-3 bg-emerald-100 dark:bg-emerald-900/40 rounded-xl">
+              <i data-lucide="user-check" class="w-6 h-6 text-emerald-600 dark:text-emerald-400"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Toolbar -->
+    <section class="mb-4 no-print">
+      <div class="glass rounded-2xl p-4 shadow-md border border-slate-200/50 dark:border-slate-700/50">
+        <div class="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
+          <div class="relative flex-1">
+            <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
+            <input id="searchInput" type="text" placeholder="Cari desa, tempat, atau status..."
+              class="w-full pl-10 pr-4 py-2.5 text-sm bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition">
+          </div>
+          <div class="flex gap-2">
+            <button id="refreshBtn" class="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-lg transition">
+              <i data-lucide="refresh-ccw" class="w-4 h-4"></i>
+              <span class="hidden sm:inline">Refresh</span>
+            </button>
+            <button id="exportBtn" class="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-lg transition">
+              <i data-lucide="download" class="w-4 h-4"></i>
+              <span class="hidden sm:inline">Export CSV</span>
+            </button>
+            <button id="printBtn" class="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition">
+              <i data-lucide="printer" class="w-4 h-4"></i>
+              <span class="hidden sm:inline">Print</span>
+            </button>
+          </div>
+        <div id="lastUpdated" class="mt-3 text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
+          <i data-lucide="clock" class="w-3.5 h-3.5"></i>
+          <span>Memuat data...</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tabel Utama -->
+    <section class="glass rounded-2xl shadow-lg border border-slate-200/50 dark:border-slate-700/50 overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm text-left">
+          <thead class="bg-slate-100/80 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 uppercase text-xs tracking-wider">
+            <tr>
+              <th class="px-4 py-3.5 font-semibold">Desa</th>
+              <th class="px-4 py-3.5 font-semibold">Rencana Tanggal</th>
+              <th class="px-4 py-3.5 font-semibold">Tempat</th>
+              <th class="px-4 py-3.5 font-semibold">Jam</th>
+              <th class="px-4 py-3.5 font-semibold">Status</th>
+              <th class="px-4 py-3.5 font-semibold text-center">L</th>
+              <th class="px-4 py-3.5 font-semibold text-center">P</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody" class="divide-y divide-slate-200 dark:divide-slate-700">
+            <tr>
+              <td colspan="7" class="px-4 py-10 text-center text-slate-500">
+                <div class="flex flex-col items-center gap-2">
+                  <i data-lucide="loader-2" class="w-6 h-6 animate-spin"></i>
+                  <span>Memuat data dari Google Sheet...</span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Info Update -->
+    <div class="mt-6 text-center text-sm text-slate-500 dark:text-slate-400 no-print">
+      <p class="inline-flex items-center gap-2">
+        <i data-lucide="info" class="w-4 h-4"></i>
+        Update data di Google Sheet untuk mengubah tampilan otomatis
+      </p>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="mt-12 py-6 border-t border-slate-200 dark:border-slate-800 text-center text-sm text-slate-500 dark:text-slate-400">
+    <p>&copy; 2026 TPP Kecamatan Barambai. Data Musrenbang Desa.</p>
+    <p class="mt-1 text-xs">Dibuat untuk memudahkan monitoring jadwal Musrenbang</p>
+  </footer>
+
+  <script>
+    // ========================================================================
+    // KONFIGURASI GOOGLE SHEET
+    // ========================================================================
+    // 1. Buka Google Sheet Anda
+    // 2. File > Share > Publish to Web > Pilih sheet > Format: CSV > Publish
+    // 3. Copy link CSV yang muncul, paste di bawah ini mengganti URL default
+    // 
+    // FORMAT SHEET: Kolom A=Desa, B=Rencana Tanggal, C=Tempat, D=Jam, E=Status, F=L, G=P
+    // Contoh format status: Selesai, Dijadwalkan, Ditunda, Batal
+    // ========================================================================
+    const GOOGLE_SHEET_CSV_URL = ''; // <-- GANTI DENGAN LINK CSV GOOGLE SHEET ANDA
+    
+    // Data default 11 desa jika sheet kosong atau gagal load
+    const DEFAULT_DESA = [
+      'Barambai', 'Sungai Kali', 'Pendalaman', 'Handil Barabai', 'Bagagap',
+      'Barambai Karya Tani', 'Pendalaman Baru', 'Karya Baru', 
+      'Barambai Kolam Kiri', 'Barambai Kolam Kanan', 'Barambai Kolam Kiri Dalam'
+    ];
+
+    // State
+    let allData = [];
+    let filteredData = [];
+
+    // Elements
+    const tableBody = document.getElementById('tableBody');
+    const searchInput = document.getElementById('searchInput');
+    const totalLEl = document.getElementById('totalL');
+    const totalPEl = document.getElementById('totalP');
+    const totalAllEl = document.getElementById('totalAll');
+    const lastUpdatedEl = document.getElementById('lastUpdated');
+    const refreshBtn = document.getElementById('refreshBtn');
+    const exportBtn = document.getElementById('exportBtn');
+    const printBtn = document.getElementById('printBtn');
+
+    // Theme Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    
+    // Load theme from localStorage
+    if (localStorage.getItem('theme') === 'dark' || 
+        (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      html.classList.add('dark');
+    }
+
+    themeToggle.addEventListener('click', () => {
+      html.classList.toggle('dark');
+      localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+      lucide.createIcons();
+    });
+
+    // Parse CSV
+    function parseCSV(text) {
+      const rows = [];
+      const lines = text.split('\n').filter(line => line.trim());
+      for (let line of lines) {
+        const row = [];
+        let current = '';
+        let inQuotes = false;
+        
+        for (let i = 0; i < line.length; i++) {
+          const char = line[i];
+          if (char === '"') {
+            inQuotes = !inQuotes;
+          } else if (char === ',' && !inQuotes) {
+            row.push(current.trim());
+            current = '';
+          } else {
+            current += char;
+          }
+        }
+        row.push(current.trim());
+        rows.push(row);
+      }
+      return rows;
+    }
+
+    // Status Badge
+    function getStatusBadge(status) {
+      const s = (status || '').toLowerCase().trim();
+      const config = {
+        'selesai': 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300',
+        'dijadwalkan': 'bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300',
+        'ditunda': 'bg-amber-100 text-amber-700 dark:bg-amber-900/50 dark:text-amber-300',
+        'batal': 'bg-red-100 text-red-700 dark:bg-red-900/50 dark:text-red-300'
+      };
+      const className = config[s] || 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300';
+      const label = status || '-';
+      return `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${className}">${label}</span>`;
+    }
+
+    // Proses data dari Sheet
+    function processSheetData(rows) {
+      // Skip header row jika ada
+      const dataRows = rows.slice(1).filter(row => row[0] && row[0].trim());
+      const dataMap = new Map();
+      
+      // Map data dari sheet
+      dataRows.forEach(row => {
+        const desa = row[0]?.trim();
+        if (desa) {
+          dataMap.set(desa, {
+            desa: desa,
+            tanggal: row[1]?.trim() || '-',
+            tempat: row[2]?.trim() || '-',
+            jam: row[3]?.trim() || '-',
+            status: row[4]?.trim() || '-',
+            l: parseInt(row[5]) || 0,
+            p: parseInt(row[6]) || 0
+          });
+        }
+      });
+
+      // Gabungkan dengan default desa, agar semua 11 desa tetap tampil
+      const finalData = DEFAULT_DESA.map(desa => {
+        return dataMap.get(desa) || {
+          desa: desa,
+          tanggal: '-',
+          tempat: '-',
+          jam: '-',
+          status: '-',
+          l: 0,
+          p: 0
+        };
+      });
+
+      return finalData;
+    }
+
+    // Render Tabel
+    function renderTable(data) {
+      if (!data.length) {
+        tableBody.innerHTML = `
+          <tr>
+            <td colspan="7" class="px-4 py-10 text-center text-slate-500">
+              <div class="flex flex-col items-center gap-2">
+                <i data-lucide="inbox" class="w-8 h-8"></i>
+                <span>Tidak ada data ditemukan</span>
+              </div>
+            </td>
+          </tr>`;
+        lucide.createIcons();
+        return;
+      }
+
+      tableBody.innerHTML = data.map(row => `
+        <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 transition-colors">
+          <td class="px-4 py-3.5 font-medium">${row.desa}</td>
+          <td class="px-4 py-3.5 text-slate-600 dark:text-slate-300">${row.tanggal}</td>
+          <td class="px-4 py-3.5 text-slate-600 dark:text-slate-300">${row.tempat}</td>
+          <td class="px-4 py-3.5 text-slate-600 dark:text-slate-300">${row.jam}</td>
+          <td class="px-4 py-3.5">${getStatusBadge(row.status)}</td>
+          <td class="px-4 py-3.5 text-center font-semibold">${row.l}</td>
+          <td class="px-4 py-3.5 text-center font-semibold">${row.p}</td>
+        </tr>
+      `).join('');
+      
+      lucide.createIcons();
+      updateTotals(data);
+    }
+
+    // Update Total
+    function updateTotals(data) {
+      const totalL = data.reduce((sum, row) => sum + (row.l || 0), 0);
+      const totalP = data.reduce((sum, row) => sum + (row.p || 0), 0);
+      const totalAll = totalL + totalP;
+      
+      animateValue(totalLEl, totalL);
+      animateValue(totalPEl, totalP);
+      animateValue(totalAllEl, totalAll);
+    }
+
+    // Animate number
+    function animateValue(el, end) {
+      const start = parseInt(el.textContent) || 0;
+      const duration = 500;
+      const startTime = performance.now();
+      
+      function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const current = Math.floor(start + (end - start) * progress);
+        el.textContent = current.toLocaleString('id-ID');
+        if (progress < 1) requestAnimationFrame(update);
+      }
+      requestAnimationFrame(update);
+    }
+
+    // Load Data
+    async function loadData() {
+      try {
+        tableBody.innerHTML = `
+          <tr>
+            <td colspan="7" class="px-4 py-10 text-center text-slate-500">
+              <div class="flex flex-col items-center gap-2">
+                <i data-lucide="loader-2" class="w-6 h-6 animate-spin"></i>
+                <span>Memuat data...</span>
+              </div>
+            </td>
+          </tr>`;
+        lucide.createIcons();
+
+        let data;
+        if (GOOGLE_SHEET_CSV_URL && GOOGLE_SHEET_CSV_URL.includes('http')) {
+          // Cache busting dengan timestamp
+          const url = GOOGLE_SHEET_CSV_URL + (GOOGLE_SHEET_CSV_URL.includes('?') ? '&' : '?') + '_=' + Date.now();
+          const res = await fetch(url);
+          if (!res.ok) throw new Error('Gagal fetch sheet');
+          const text = await res.text();
+          const rows = parseCSV(text);
+          data = processSheetData(rows);
+        } else {
+          // Pakai data default jika URL belum diisi
+          data = DEFAULT_DESA.map(desa => ({
+            desa: desa, tanggal: '-', tempat: '-', jam: '-', status: '-', l: 0, p: 0
+          }));
+        }
+
+        allData = data;
+        filteredData = data;
+        renderTable(filteredData);
+        
+        const now = new Date();
+        lastUpdatedEl.innerHTML = `
+          <i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-500"></i>
+          <span>Terakhir diperbarui: ${now.toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' })}</span>
+        `;
+        lucide.createIcons();
+
+      } catch (err) {
+        console.error('Error loading data:', err);
+        // Fallback ke data default
+        allData = DEFAULT_DESA.map(desa => ({
+          desa: desa, tanggal: '-', tempat: '-', jam: '-', status: 'Error Load', l: 0, p: 0
+        }));
+        filteredData = allData;
+        renderTable(filteredData);
+        lastUpdatedEl.innerHTML = `
+          <i data-lucide="alert-triangle" class="w-3.5 h-3.5 text-amber-500"></i>
+          <span class="text-amber-600 dark:text-amber-400">Gagal memuat dari Sheet. Menggunakan data default.</span>
+        `;
+        lucide.createIcons();
+      }
+    }
+
+    // Search Filter
+    searchInput.addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase().trim();
+      filteredData = allData.filter(row => 
+        row.desa.toLowerCase().includes(query) ||
+        row.tempat.toLowerCase().includes(query) ||
+        row.status.toLowerCase().includes(query) ||
+        row.tanggal.toLowerCase().includes(query)
+      );
+      renderTable(filteredData);
+    });
+
+    // Export CSV
+    exportBtn.addEventListener('click', () => {
+      const headers = ['Desa', 'Rencana Tanggal', 'Tempat', 'Jam', 'Status', 'L', 'P'];
+      const csv = [
+        headers.join(','),
+        ...filteredData.map(row => [
+          `"${row.desa}"`,
+          `"${row.tanggal}"`,
+          `"${row.tempat}"`,
+          `"${row.jam}"`,
+          `"${row.status}"`,
+          row.l,
+          row.p
+        ].join(','))
+      ].join('\n');
+      
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `jadwal-musrenbang-barambai-2026.csv`;
+      link.click();
+    });
+
+    // Print
+    printBtn.addEventListener('click', () => window.print());
+    
+    // Refresh
+    refreshBtn.addEventListener('click', loadData);
+
+    // Init
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      loadData();
+      
+      // Auto refresh tiap 5 menit
+      setInterval(loadData, 300000);
+    });
+  </script>
+<script>(function(){document.addEventListener("click",function(e){var a=e.target.closest("[data-product-id]");if(!a)return;e.preventDefault();var pid=a.getAttribute("data-product-id");if(pid)parent.postMessage({type:"ecto-artifact-link-click",productId:pid},"*")})})();</script>
+</body>
+</html>
