@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jadwal Musrenbang Desa Se-Kecamatan Barambai 2026</title>
+  <meta name="description" content="Jadwal Musrenbang Desa Tahun 2026 se-Kecamatan Barambai. Data real-time per kelompok peserta dari Google Sheet.">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif']
+          },
+          colors: {
+            primary: {
+              50: '#f0f9ff', 100: '#e0f2fe', 200: '#bae6fd', 300: '#7dd3fc',
+              400: '#38bdf8', 500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1',
+              800: '#075985', 900: '#0c4a6e'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Inter Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    .glass {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .dark .glass {
+      background: rgba(17, 24, 39, 0.7);
+    }
+    @media print {
+      .no-print { display: none !important; }
+      body { background: white !important; color: black !important; }
+      .glass, .dark .glass { background: white !important; backdrop-filter: none; }
+      .shadow-lg, .shadow-md { box-shadow: none !important; }
+      .bg-gradient-to-br { background: white !important; }
+      .table-scroll { overflow: visible !important; }
+      .detail-row { display: table-row !important; }
+    }
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    .dark ::-webkit-scrollbar-thumb { background: #475569; }
+    .filter-btn-active, .tab-active {
+      background-color: rgb(2 132 199) !important;
+      color: white !important;
+      border-color: rgb(2 132 199) !important;
+    }
+    .table-scroll {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .main-row {
+      cursor: pointer;
+    }
+    .main-row:hover {
+      background-color: rgba(14, 165, 233, 0.05);
+    }
+    .dark .main-row:hover {
+      background-color: rgba(14, 165, 233, 0.1);
+    }
+    .detail-row {
+      animation: slideDown 0.3s ease-out;
+    }
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .expand-icon {
+      transition: transform 0.2s ease;
+    }
+    .expand-icon.open {
+      transform: rotate(90deg);
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-950 text-slate-800 dark:text-slate-100 min-h-screen transition-colors duration-300">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 glass border-b border-slate-200/50 dark:border-slate-700/50 no-print">
+    <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center gap-3">
+          <div class="p-2 bg-primary-600 rounded-lg text-white">
+            <i data-lucide="calendar-days" class="w-5 h-5"></i>
+          </div>
+          <div class="hidden sm:block">
+            <h1 class="text-lg font-semibold leading-tight">Jadwal Musrenbang Desa 2026</h1>
+            <p class="text-xs text-slate-500 dark:text-slate-400">Kecamatan Barambai</p>
+          </div>
+          <div class="sm:hidden">
+            <h1 class="text-base font-semibold">Musrenbang 2026</h1>
+          </div>
+        <div class="flex items-center gap-2">
+          <a href="https://tppkecamatanbarambai.blogspot.com/" target="_blank" rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-all duration-200 shadow-md hover:shadow-lg">
+            <i data-lucide="external-link" class="w-4 h-4"></i>
+            <span class="hidden md:inline">Branch TPP Barambai</span>
+          </a>
+          <button id="themeToggle" class="p-2 rounded-lg bg-white/50 dark:bg-slate-800/50 hover:bg-white dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 transition-colors">
+            <i data-lucide="sun" class="w-5 h-5 block dark:hidden"></i>
+            <i data-lucide="moon" class="w-5 h-5 hidden dark:block"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+    <!-- Tanggal Update Terakhir -->
+    <div class="mb-4 text-center sm:text-left">
+      <p id="dataUpdateTime" class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 inline-flex items-center gap-1.5">
+        <i data-lucide="calendar-check" class="w-3.5 h-3.5"></i>
+        <span>Data terakhir diupdate: -</span>
+      </p>
+    </div>
+
+    <!-- Tabs -->
+    <section class="mb-6 no-print">
+      <div class="glass rounded-2xl p-2 shadow-lg border border-slate-200/50 dark:border-slate-700/50 inline-flex gap-2">
+        <button data-tab="tabel" class="tab-btn tab-active inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition">
+          <i data-lucide="table" class="w-4 h-4"></i>
+          <span>Tabel Data</span>
+        </button>
+        <button data-tab="grafik" class="tab-btn inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition">
+          <i data-lucide="bar-chart-3" class="w-4 h-4"></i>
+          <span>Grafik Kehadiran</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- TAB: TABEL -->
+    <div id="tab-tabel">
+      <!-- Progress Bar Se-Kecamatan -->
+      <section class="mb-6">
+        <div class="glass rounded-2xl p-5 shadow-lg border border-slate-200/50 dark:border-slate-700/50">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
+            <div class="flex items-center gap-2">
+              <i data-lucide="check-square" class="w-5 h-5 text-primary-600 dark:text-primary-400"></i>
+              <h2 class="text-sm sm:text-base font-semibold">Progress Musrenbang Se-Kecamatan</h2>
+            </div>
+            <p id="progressText" class="text-sm font-medium text-slate-600 dark:text-slate-300">0 dari 11 Desa Selesai (0%)</p>
+          </div>
+          <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-3 overflow-hidden">
+            <div id="progressBar" class="bg-gradient-to-r from-primary-500 to-emerald-500 h-3 rounded-full transition-all duration-700 ease-out" style="width: 0%"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Total Daftar Hadir -->
+      <section class="mb-6">
+        <div class="flex items-center justify-between gap-2 mb-3">
+          <div class="flex items-center gap-2">
+            <i data-lucide="users" class="w-5 h-5 text-primary-600 dark:text-primary-400"></i>
+            <h2 class="text-base font-semibold">Rekap Total Se-Kecamatan</h2>
+          </div>
+          <button id="toggleDetailKelompok" class="no-print inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-lg transition">
+            <i data-lucide="eye-off" class="w-3.5 h-3.5"></i>
+            <span>Sembunyikan Detail Kelompok</span>
+          </button>
+        </div>
+        <div id="rekapGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+          <div class="glass rounded-xl p-4 shadow border border-slate-200/50 dark:border-slate-700/50 rekap-utama">
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-1">Laki-laki</p>
+            <p id="totalL" class="text-2xl font-bold text-blue-600 dark:text-blue-400">0</p>
+          </div>
+          <div class="glass rounded-xl p-4 shadow border border-slate-200/50 dark:border-slate-700/50 rekap-utama">
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-1">Perempuan</p>
+            <p id="totalP" class="text-2xl font-bold text-pink-600 dark:text-pink-400">0</p>
+          </div>
+          <div class="glass rounded-xl p-4 shadow border border-slate-200/50 dark:border-slate-700/50 col-span-2 sm:col-span-1 rekap-utama">
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-1">Total Hadir</p>
+            <p id="totalAll" class="text-2xl font-bold text-emerald-600 dark:text-emerald-400">0</p>
+          </div>
+          <div class="glass rounded-xl p-4 shadow border border-slate-200/50 dark:border-slate-700/50 rekap-detail">
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-1">Pemdes</p>
+            <p id="totalPemdes" class="text-2xl font-bold">0</p>
+          </div>
+          <div class="glass rounded-xl p-4 shadow border border-slate-200/50 dark:border-slate-700/50 rekap-detail">
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-1">BPD</p>
+            <p id="totalBPD" class="text-2xl font-bold">0</p>
+          </div>
+          <div class="glass rounded-xl p-4 shadow border border-slate-200/50 dark:border-slate-700/50 rekap-detail">
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-1">RT/RW</p>
+            <p id="totalRTRW" class="text-2xl font-bold">0</p>
+          </div>
+          <div class="glass rounded-xl p-4 shadow border border-slate-200/50 dark:border-slate-700/50 rekap-detail">
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-1">A-RTM</p>
+            <p id="totalARTM" class="text-2xl font-bold">0</p>
+          </div>
+          <div class="glass rounded-xl p-4 shadow border border-slate-200/50 dark:border-slate-700/50 rekap-detail">
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-1">Pemuda</p>
+            <p id="totalPemuda" class="text-2xl font-bold">0</p>
+          </div>
+          <div class="glass rounded-xl p-4 shadow border border-slate-200/50 dark:border-slate-700/50 rekap-detail">
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-1">Klp Tani</p>
+            <p id="totalKlpTani" class="text-2xl font-bold">0</p>
+          </div>
+          <div class="glass rounded-xl p-4 shadow border border-slate-200/50 dark:border-slate-700/50 rekap-detail">
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-1">Klp Nelayan</p>
+            <p id="totalKlpNelayan" class="text-2xl font-bold">0</p>
+          </div>
+          <div class="glass rounded-xl p-4 shadow border border-slate-200/50 dark:border-slate-700/50 rekap-detail">
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-1">Klp Difabel</p>
+            <p id="totalKlpDifabel" class="text-2xl font-bold">0</p>
+          </div>
+          <div class="glass rounded-xl p-4 shadow border border-slate-200/50 dark:border-slate-700/50 rekap-detail">
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-1">Klp Marginal</p>
+            <p id="totalKlpMarginal" class="text-2xl font-bold">0</p>
+          </div>
+          <div class="glass rounded-xl p-4 shadow border border-slate-200/50 dark:border-slate-700/50 rekap-detail">
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-1">Tokoh Adat</p>
+            <p id="totalTokohAdat" class="text-2xl font-bold">0</p>
+          </div>
+          <div class="glass rounded-xl p-4 shadow border border-slate-200/50 dark:border-slate-700/50 rekap-detail">
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-1">Tokoh Agama</p>
+            <p id="totalTokohAgama" class="text-2xl font-bold">0</p>
+          </div>
+          <div class="glass rounded-xl p-4 shadow border border-slate-200/50 dark:border-slate-700/50 rekap-detail">
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-1">Kader Desa</p>
+            <p id="totalKaderDesa" class="text-2xl font-bold">0</p>
+          </div>
+          <div class="glass rounded-xl p-4 shadow border border-slate-200/50 dark:border-slate-700/50 rekap-detail">
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-1">Peninjau</p>
+            <p id="totalPeninjau" class="text-2xl font-bold">0</p>
+          </div>
+          <div class="glass rounded-xl p-4 shadow border border-slate-200/50 dark:border-slate-700/50 rekap-detail">
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-1">Klp Lainnya</p>
+            <p id="totalKlpLainnya" class="text-2xl font-bold">0</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Toolbar -->
+      <section class="mb-4 no-print">
+        <div class="glass rounded-2xl p-4 shadow-md border border-slate-200/50 dark:border-slate-700/50">
+          <div class="flex flex-col gap-3">
+            <div class="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
+              <div class="relative flex-1">
+                <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
+                <input id="searchInput" type="text" placeholder="Cari desa, tempat, atau status..."
+                  class="w-full pl-10 pr-4 py-2.5 text-sm bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition">
+              </div>
+              <div class="flex gap-2">
+                <button id="refreshBtn" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-lg transition flex-1 sm:flex-none">
+                  <i data-lucide="refresh-ccw" class="w-4 h-4"></i>
+                  <span class="hidden sm:inline">Refresh</span>
+                </button>
+                <button id="exportBtn" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-lg transition flex-1 sm:flex-none">
+                  <i data-lucide="download" class="w-4 h-4"></i>
+                  <span class="hidden sm:inline">Export CSV</span>
+                </button>
+                <button id="printBtn" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition flex-1 sm:flex-none">
+                  <i data-lucide="printer" class="w-4 h-4"></i>
+                  <span class="hidden sm:inline">Print</span>
+                </button>
+              </div>
+            </div>
+            
+            <!-- Filter Status -->
+            <div class="flex flex-wrap gap-2 pt-2 border-t border-slate-200 dark:border-slate-700">
+              <span class="text-xs font-medium text-slate-500 dark:text-slate-400 self-center mr-1">Filter Status:</span>
+              <button data-filter="semua" class="filter-btn filter-btn-active inline-flex items-center gap-1.5 px-3 py-1.5 text-xs sm:text-sm font-medium bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-lg transition">
+                <i data-lucide="list" class="w-3.5 h-3.5"></i>
+                Semua
+              </button>
+              <button data-filter="dijadwalkan" class="filter-btn inline-flex items-center gap-1.5 px-3 py-1.5 text-xs sm:text-sm font-medium bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-lg transition">
+                <i data-lucide="clock" class="w-3.5 h-3.5"></i>
+                Dijadwalkan
+              </button>
+              <button data-filter="selesai" class="filter-btn inline-flex items-center gap-1.5 px-3 py-1.5 text-xs sm:text-sm font-medium bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-lg transition">
+                <i data-lucide="check-circle" class="w-3.5 h-3.5"></i>
+                Selesai
+              </button>
+              <button data-filter="ditunda" class="filter-btn inline-flex items-center gap-1.5 px-3 py-1.5 text-xs sm:text-sm font-medium bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-lg transition">
+                <i data-lucide="pause-circle" class="w-3.5 h-3.5"></i>
+                Ditunda
+              </button>
+              <button data-filter="batal" class="filter-btn inline-flex items-center gap-1.5 px-3 py-1.5 text-xs sm:text-sm font-medium bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-lg transition">
+                <i data-lucide="x-circle" class="w-3.5 h-3.5"></i>
+                Batal
+              </button>
+            </div>
+          </div>
+          <div id="lastUpdated" class="mt-3 text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
+            <i data-lucide="clock" class="w-3.5 h-3.5"></i>
+            <span>Memuat data...</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tabel Utama -->
+      <section class="glass rounded-2xl shadow-lg border border-slate-200/50 dark:border-slate-700/50 overflow-hidden">
+        <div class="p-3 bg-blue-50 dark:bg-blue-900/20 border-b border-blue-200 dark:border-blue-800 no-print">
+          <p class="text-xs text-blue-800 dark:text-blue-200 flex items-center gap-1.5">
+            <i data-lucide="info" class="w-3.5 h-3.5"></i>
+            <span>Klik baris desa untuk melihat detail 14 kelompok. Detail hanya tersedia untuk Musrenbang yang sudah selesai.</span>
+          </p>
+        </div>
+        <div class="table-scroll">
+          <table class="w-full text-sm text-left">
+            <thead class="bg-slate-100/80 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+              <tr>
+                <th class="px-4 py-3 font-semibold">Desa</th>
+                <th class="px-4 py-3 font-semibold whitespace-nowrap">Rencana Tanggal</th>
+                <th class="px-4 py-3 font-semibold">Tempat</th>
+                <th class="px-4 py-3 font-semibold whitespace-nowrap">Jam</th>
+                <th class="px-4 py-3 font-semibold">Status</th>
+                <th class="px-4 py-3 font-semibold text-center">L</th>
+                <th class="px-4 py-3 font-semibold text-center">P</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody" class="divide-y divide-slate-200 dark:divide-slate-700">
+              <tr>
+                <td colspan="7" class="px-4 py-10 text-center text-slate-500">
+                  <div class="flex flex-col items-center gap-2">
+                    <i data-lucide="loader-2" class="w-6 h-6 animate-spin"></i>
+                    <span>Memuat data dari Google Sheet...</span>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <!-- TAB: GRAFIK -->
+    <div id="tab-grafik" class="hidden">
+      <section class="glass rounded-2xl p-5 shadow-lg border border-slate-200/50 dark:border-slate-700/50 mb-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+          <div class="flex items-center gap-2">
+            <i data-lucide="bar-chart-3" class="w-5 h-5 text-primary-600 dark:text-primary-400"></i>
+            <h2 class="text-base font-semibold">Grafik Kehadiran per Kelompok</h2>
+          </div>
+          <div class="flex items-center gap-2">
+            <label for="desaFilter" class="text-sm font-medium text-slate-600 dark:text-slate-300">Pilih Desa:</label>
+            <select id="desaFilter" class="px-3 py-2 text-sm bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-primary-500 outline-none">
+              <option value="semua">Se-Kecamatan (Selesai)</option>
+            </select>
+          </div>
+        </div>
+        <div id="chartContainer" class="relative h-[400px] sm:h-[500px]">
+          <canvas id="kelompokChart"></canvas>
+        </div>
+        <div id="chartEmptyState" class="hidden py-16 text-center">
+          <div class="flex flex-col items-center gap-3 text-slate-500 dark:text-slate-400">
+            <i data-lucide="bar-chart-2" class="w-12 h-12 opacity-50"></i>
+            <p class="text-base font-medium">Belum ada data Musrenbang yang selesai</p>
+            <p class="text-sm">Grafik akan muncul setelah ada desa yang menyelesaikan Musrenbang</p>
+          </div>
+        </div>
+        <div class="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800 no-print">
+          <div class="flex items-start gap-2">
+            <i data-lucide="info" class="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5"></i>
+            <div class="text-sm text-blue-800 dark:text-blue-200">
+              <p class="font-medium mb-1">Info:</p>
+              <ul class="list-disc list-inside space-y-1 text-xs">
+                <li>Grafik hanya menampilkan data dari desa yang statusnya "Selesai"</li>
+                <li>Pilih desa tertentu untuk lihat detail per desa</li>
+                <li>Scroll horizontal di HP untuk lihat semua kelompok</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Info Update -->
+    <div class="mt-6 text-center text-sm text-slate-500 dark:text-slate-400 no-print">
+      <p class="inline-flex items-center gap-2">
+        <i data-lucide="info" class="w-4 h-4"></i>
+        Update data di Google Sheet untuk mengubah tampilan otomatis
+      </p>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="mt-12 py-6 border-t border-slate-200 dark:border-slate-800 text-center text-sm text-slate-500 dark:text-slate-400">
+    <p>&copy; 2026 TPP Kecamatan Barambai. Data Musrenbang Desa.</p>
+    <p class="mt-1 text-xs">Dibuat untuk memudahkan monitoring jadwal Musrenbang</p>
+  </footer>
+
+  <script>
+    // ========================================================================
+    // KONFIGURASI GOOGLE SHEET
+    // ========================================================================
+    const GOOGLE_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRndoeKfPuEeKH4J8tAw87AqNiQa5qLdyfJgUJ97aL0DvKJn8F24fEAp_QHsjFmUA/pub?gid=744974689&single=true&output=csv';
+    
+    // Data default 11 desa jika sheet kosong atau gagal load
+    const DEFAULT_DESA = [
+      'Barambai', 'Sungai Kali', 'Pendalaman', 'Handil Barabai', 'Bagagap',
+      'Barambai Karya Tani', 'Pendalaman Baru', 'Karya Baru', 
+      'Barambai Kolam Kiri', 'Barambai Kolam Kanan', 'Barambai Kolam Kiri Dalam'
+    ];
+
+    // Kelompok headers - urutan sesuai sheet
+    const KELOMPOK_HEADERS = [
+      { key: 'Pemdes', label: 'Pemdes' },
+      { key: 'BPD', label: 'BPD' },
+      { key: 'RT/RW', label: 'RT/RW' },
+      { key: 'A-RTM', label: 'A-RTM' },
+      { key: 'Pemuda', label: 'Pemuda' },
+      { key: 'Klp_Tani', label: 'Klp Tani' },
+      { key: 'Klp_Nelayan', label: 'Klp Nelayan' },
+      { key: 'Klp_Difabel', label: 'Klp Difabel' },
+      { key: 'Klp_Marginal', label: 'Klp Marginal' },
+      { key: 'Tokoh_Adat', label: 'Tokoh Adat' },
+      { key: 'Tokoh_Agama', label: 'Tokoh Agama' },
+      { key: 'Kader_Desa', label: 'Kader Desa' },
+      { key: 'Peninjau_(luar_warga_Desa)', label: 'Peninjau' },
+      { key: 'Klp_Lainnya', label: 'Klp Lainnya' }
+    ];
+
+    // State
+    let allData = [];
+    let filteredData = [];
+    let currentFilter = 'semua';
+    let currentTab = 'tabel';
+    let chartInstance = null;
+    let expandedRows = new Set();
+    let showDetailKelompok = true;
+
+    // Elements
+    const tableBody = document.getElementById('tableBody');
+    const searchInput = document.getElementById('searchInput');
+    const lastUpdatedEl = document.getElementById('lastUpdated');
+    const refreshBtn = document.getElementById('refreshBtn');
+    const exportBtn = document.getElementById('exportBtn');
+    const printBtn = document.getElementById('printBtn');
+    const progressBar = document.getElementById('progressBar');
+    const progressText = document.getElementById('progressText');
+    const dataUpdateTimeEl = document.getElementById('dataUpdateTime');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const desaFilter = document.getElementById('desaFilter');
+    const toggleDetailKelompok = document.getElementById('toggleDetailKelompok');
+
+    // Theme Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    
+    // Load theme from localStorage
+    if (localStorage.getItem('theme') === 'dark' || 
+        (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      html.classList.add('dark');
+    }
+
+    themeToggle.addEventListener('click', () => {
+      html.classList.toggle('dark');
+      localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+      lucide.createIcons();
+      if (chartInstance) updateChart();
+    });
+
+    // Toggle Detail Kelompok di Rekap
+    toggleDetailKelompok.addEventListener('click', () => {
+      showDetailKelompok = !showDetailKelompok;
+      document.querySelectorAll('.rekap-detail').forEach(el => {
+        el.style.display = showDetailKelompok ? 'block' : 'none';
+      });
+      const icon = toggleDetailKelompok.querySelector('i');
+      const text = toggleDetailKelompok.querySelector('span');
+      if (showDetailKelompok) {
+        icon.setAttribute('data-lucide', 'eye-off');
+        text.textContent = 'Sembunyikan Detail Kelompok';
+      } else {
+        icon.setAttribute('data-lucide', 'eye');
+        text.textContent = 'Tampilkan Detail Kelompok';
+      }
+      lucide.createIcons();
+    });
+
+    // Tab Switching
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach(b => b.classList.remove('tab-active'));
+        btn.classList.add('tab-active');
+        currentTab = btn.dataset.tab;
+        document.getElementById('tab-tabel').classList.toggle('hidden', currentTab !== 'tabel');
+        document.getElementById('tab-grafik').classList.toggle('hidden', currentTab !== 'grafik');
+        if (currentTab === 'grafik' && allData.length > 0) updateChart();
+      });
+    });
+
+    // Parse CSV
+    function parseCSV(text) {
+      const rows = [];
+      const lines = text.split('\n').filter(line => line.trim());
+      for (let line of lines) {
+        const row = [];
+        let current = '';
+        let inQuotes = false;
+        
+        for (let i = 0; i < line.length; i++) {
+          const char = line[i];
+          if (char === '"') {
+            inQuotes = !inQuotes;
+          } else if (char === ',' && !inQuotes) {
+            row.push(current.trim());
+            current = '';
+          } else {
+            current += char;
+          }
+        }
+        row.push(current.trim());
+        rows.push(row);
+      }
+      return rows;
+    }
+
+    // Status Badge
+    function getStatusBadge(status) {
+      const s = (status || '').toLowerCase().trim();
+      const config = {
+        'selesai': 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300',
+        'dijadwalkan': 'bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300',
+        'ditunda': 'bg-amber-100 text-amber-700 dark:bg-amber-900/50 dark:text-amber-300',
+        'batal': 'bg-red-100 text-red-700 dark:bg-red-900/50 dark:text-red-300'
+      };
+      const className = config[s] || 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300';
+      const label = status || '-';
+      return `<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${className}">${label}</span>`;
+    }
+
+    // Proses data dari Sheet
+    function processSheetData(rows) {
+      const dataRows = rows.slice(1).filter(row => row[0] && row[0].trim());
+      const dataMap = new Map();
+      
+      dataRows.forEach(row => {
+        const desa = row[0]?.trim();
+        if (desa) {
+          const item = {
+            desa: desa,
+            tanggal: row[1]?.trim() || '-',
+            tempat: row[2]?.trim() || '-',
+            jam: row[3]?.trim() || '-',
+            status: row[4]?.trim() || '-',
+            l: parseInt(row[5]) || 0,
+            p: parseInt(row[6]) || 0,
+            Pemdes: parseInt(row[7]) || 0,
+            BPD: parseInt(row[8]) || 0,
+            'RT/RW': parseInt(row[9]) || 0,
+            'A-RTM': parseInt(row[10]) || 0,
+            Pemuda: parseInt(row[11]) || 0,
+            Klp_Tani: parseInt(row[12]) || 0,
+            Klp_Nelayan: parseInt(row[13]) || 0,
+            Klp_Difabel: parseInt(row[14]) || 0,
+            Klp_Marginal: parseInt(row[15]) || 0,
+            Tokoh_Adat: parseInt(row[16]) || 0,
+            Tokoh_Agama: parseInt(row[17]) || 0,
+            Kader_Desa: parseInt(row[18]) || 0,
+            'Peninjau_(luar_warga_Desa)': parseInt(row[19]) || 0,
+            Klp_Lainnya: parseInt(row[20]) || 0
+          };
+          dataMap.set(desa, item);
+        }
+      });
+
+      const finalData = DEFAULT_DESA.map(desa => {
+        return dataMap.get(desa) || {
+          desa: desa,
+          tanggal: '-', tempat: '-', jam: '-', status: '-',
+          l: 0, p: 0, Pemdes: 0, BPD: 0, 'RT/RW': 0, 'A-RTM': 0, 
+          Pemuda: 0, Klp_Tani: 0, Klp_Nelayan: 0, Klp_Difabel: 0, 
+          Klp_Marginal: 0, Tokoh_Adat: 0, Tokoh_Agama: 0, Kader_Desa: 0, 
+          'Peninjau_(luar_warga_Desa)': 0, Klp_Lainnya: 0
+        };
+      });
+
+      return finalData;
+    }
+
+    // Update Progress Bar
+    function updateProgress(data) {
+      const totalDesa = DEFAULT_DESA.length;
+      const completedDesa = data.filter(row => row.status.toLowerCase().trim() === 'selesai').length;
+      const percentage = totalDesa > 0 ? Math.round((completedDesa / totalDesa) * 100) : 0;
+      
+      progressBar.style.width = `${percentage}%`;
+      progressText.textContent = `${completedDesa} dari ${totalDesa} Desa Selesai (${percentage}%)`;
+    }
+
+    // Update Totals
+    function updateTotals(data) {
+      const totals = {
+        l: 0, p: 0, Pemdes: 0, BPD: 0, 'RT/RW': 0, 'A-RTM': 0, 
+        Pemuda: 0, Klp_Tani: 0, Klp_Nelayan: 0, Klp_Difabel: 0, 
+        Klp_Marginal: 0, Tokoh_Adat: 0, Tokoh_Agama: 0, Kader_Desa: 0, 
+        'Peninjau_(luar_warga_Desa)': 0, Klp_Lainnya: 0
+      };
+
+      data.forEach(row => {
+        Object.keys(totals).forEach(key => {
+          totals[key] += row[key] || 0;
+        });
+      });
+
+      const totalAll = totals.l + totals.p;
+      
+      animateValue(document.getElementById('totalL'), totals.l);
+      animateValue(document.getElementById('totalP'), totals.p);
+      animateValue(document.getElementById('totalAll'), totalAll);
+      animateValue(document.getElementById('totalPemdes'), totals.Pemdes);
+      animateValue(document.getElementById('totalBPD'), totals.BPD);
+      animateValue(document.getElementById('totalRTRW'), totals['RT/RW']);
+      animateValue(document.getElementById('totalARTM'), totals['A-RTM']);
+      animateValue(document.getElementById('totalPemuda'), totals.Pemuda);
+      animateValue(document.getElementById('totalKlpTani'), totals.Klp_Tani);
+      animateValue(document.getElementById('totalKlpNelayan'), totals.Klp_Nelayan);
+      animateValue(document.getElementById('totalKlpDifabel'), totals.Klp_Difabel);
+      animateValue(document.getElementById('totalKlpMarginal'), totals.Klp_Marginal);
+      animateValue(document.getElementById('totalTokohAdat'), totals.Tokoh_Adat);
+      animateValue(document.getElementById('totalTokohAgama'), totals.Tokoh_Agama);
+      animateValue(document.getElementById('totalKaderDesa'), totals.Kader_Desa);
+      animateValue(document.getElementById('totalPeninjau'), totals['Peninjau_(luar_warga_Desa)']);
+      animateValue(document.getElementById('totalKlpLainnya'), totals.Klp_Lainnya);
+    }
+
+    // Toggle Detail Row
+    function toggleDetail(desa) {
+      const rowElement = document.querySelector(`tr[data-desa="${desa}"]`);
+      const iconElement = rowElement.querySelector('.expand-icon');
+      const detailRow = document.querySelector(`tr[data-detail-desa="${desa}"]`);
+      
+      if (expandedRows.has(desa)) {
+        expandedRows.delete(desa);
+        if (detailRow) detailRow.remove();
+        if (iconElement) iconElement.classList.remove('open');
+      } else {
+        expandedRows.add(desa);
+        if (iconElement) iconElement.classList.add('open');
+        const rowData = allData.find(d => d.desa === desa);
+        if (rowData && !detailRow) {
+          const newDetailRow = createDetailRow(rowData);
+          rowElement.insertAdjacentHTML('afterend', newDetailRow);
+          lucide.createIcons();
+        }
+      }
+    }
+
+    // Create Detail Row HTML
+    function createDetailRow(row) {
+      const isSelesai = row.status.toLowerCase().trim() === 'selesai';
+      
+      if (!isSelesai) {
+        return `
+          <tr data-detail-desa="${row.desa}" class="detail-row bg-slate-50/50 dark:bg-slate-800/30">
+            <td colspan="7" class="px-4 py-6">
+              <div class="flex items-center justify-center gap-2 text-amber-600 dark:text-amber-400">
+                <i data-lucide="clock" class="w-5 h-5"></i>
+                <span class="text-sm font-medium">Data detail kelompok akan tampil setelah Musrenbang selesai</span>
+              </div>
+            </td>
+          </tr>
+        `;
+      }
+
+      const cards = KELOMPOK_HEADERS.map(h => `
+        <div class="bg-white dark:bg-slate-800 rounded-lg p-3 border border-slate-200 dark:border-slate-700">
+          <p class="text-xs text-slate-500 dark:text-slate-400 mb-1">${h.label}</p>
+          <p class="text-xl font-bold text-slate-900 dark:text-slate-100">${row[h.key] || 0}</p>
+        </div>
+      `).join('');
+
+      return `
+        <tr data-detail-desa="${row.desa}" class="detail-row bg-slate-50/50 dark:bg-slate-800/30">
+          <td colspan="7" class="px-4 py-4">
+            <div class="mb-3">
+              <h4 class="text-sm font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                <i data-lucide="users" class="w-4 h-4"></i>
+                Detail Kelompok Peserta - ${row.desa}
+              </h4>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-2">
+              ${cards}
+            </div>
+          </td>
+        </tr>
+      `;
+    }
+
+    // Render Tabel
+    function renderTable(data) {
+      if (!data.length) {
+        tableBody.innerHTML = `
+          <tr>
+            <td colspan="7" class="px-4 py-10 text-center text-slate-500">
+              <div class="flex flex-col items-center gap-2">
+                <i data-lucide="inbox" class="w-8 h-8"></i>
+                <span>Tidak ada data ditemukan</span>
+              </div>
+            </td>
+          </tr>`;
+        lucide.createIcons();
+        return;
+      }
+
+      // Clear expanded rows that are no longer in filtered data
+      const currentDesas = new Set(data.map(d => d.desa));
+      expandedRows.forEach(desa => {
+        if (!currentDesas.has(desa)) expandedRows.delete(desa);
+      });
+
+      tableBody.innerHTML = data.map(row => {
+        const isExpanded = expandedRows.has(row.desa);
+        const iconClass = isExpanded ? 'expand-icon open' : 'expand-icon';
+        const mainRow = `
+          <tr data-desa="${row.desa}" class="main-row" onclick="toggleDetail('${row.desa}')">
+            <td class="px-4 py-3 font-medium">
+              <div class="flex items-center gap-2">
+                <i data-lucide="chevron-right" class="w-4 h-4 ${iconClass} text-slate-400"></i>
+                <span>${row.desa}</span>
+              </div>
+            </td>
+            <td class="px-4 py-3 text-slate-600 dark:text-slate-300 whitespace-nowrap">${row.tanggal}</td>
+            <td class="px-4 py-3 text-slate-600 dark:text-slate-300">${row.tempat}</td>
+            <td class="px-4 py-3 text-slate-600 dark:text-slate-300 whitespace-nowrap">${row.jam}</td>
+            <td class="px-4 py-3">${getStatusBadge(row.status)}</td>
+            <td class="px-4 py-3 text-center font-semibold text-blue-600 dark:text-blue-400">${row.l}</td>
+            <td class="px-4 py-3 text-center font-semibold text-pink-600 dark:text-pink-400">${row.p}</td>
+          </tr>
+        `;
+        const detailRow = isExpanded ? createDetailRow(row) : '';
+        return mainRow + detailRow;
+      }).join('');
+      
+      lucide.createIcons();
+      updateTotals(data);
+    }
+
+    // Animate number
+    function animateValue(el, end) {
+      const start = parseInt(el.textContent.replace(/\D/g, '')) || 0;
+      const duration = 500;
+      const startTime = performance.now();
+      
+      function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const current = Math.floor(start + (end - start) * progress);
+        el.textContent = current.toLocaleString('id-ID');
+        if (progress < 1) requestAnimationFrame(update);
+      }
+      requestAnimationFrame(update);
+    }
+
+    // Format waktu Indonesia
+    function formatWaktuIndonesia(date) {
+      const options = {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZone: 'Asia/Makassar'
+      };
+      return date.toLocaleString('id-ID', options) + ' WITA';
+    }
+
+    // Apply filters
+    function applyFilters() {
+      const query = searchInput.value.toLowerCase().trim();
+      
+      filteredData = allData.filter(row => {
+        const matchSearch = row.desa.toLowerCase().includes(query) ||
+                           row.tempat.toLowerCase().includes(query) ||
+                           row.status.toLowerCase().includes(query) ||
+                           row.tanggal.toLowerCase().includes(query);
+        
+        const matchStatus = currentFilter === 'semua' || 
+                           row.status.toLowerCase().trim() === currentFilter;
+        
+        return matchSearch && matchStatus;
+      });
+      
+      renderTable(filteredData);
+    }
+
+    // Update Chart - hanya data selesai
+    function updateChart() {
+      const ctx = document.getElementById('kelompokChart');
+      const chartContainer = document.getElementById('chartContainer');
+      const chartEmptyState = document.getElementById('chartEmptyState');
+      if (!ctx) return;
+
+      const selectedDesa = desaFilter.value;
+      
+      // Filter hanya desa dengan status selesai
+      const dataSelesai = allData.filter(d => d.status.toLowerCase().trim() === 'selesai');
+      
+      if (dataSelesai.length === 0) {
+        chartContainer.style.display = 'none';
+        chartEmptyState.classList.remove('hidden');
+        if (chartInstance) {
+          chartInstance.destroy();
+          chartInstance = null;
+        }
+        lucide.createIcons();
+        return;
+      }
+
+      chartContainer.style.display = 'block';
+      chartEmptyState.classList.add('hidden');
+      
+      let chartData;
+      
+      if (selectedDesa === 'semua') {
+        chartData = {};
+        KELOMPOK_HEADERS.forEach(h => chartData[h.key] = 0);
+        chartData['L'] = 0;
+        chartData['P'] = 0;
+        
+        dataSelesai.forEach(row => {
+          chartData['L'] += row.l || 0;
+          chartData['P'] += row.p || 0;
+          KELOMPOK_HEADERS.forEach(h => {
+            chartData[h.key] += row[h.key] || 0;
+          });
+        });
+      } else {
+        const desa = dataSelesai.find(d => d.desa === selectedDesa);
+        if (!desa) {
+          chartContainer.style.display = 'none';
+          chartEmptyState.classList.remove('hidden');
+          if (chartInstance) {
+            chartInstance.destroy();
+            chartInstance = null;
+          }
+          return;
+        }
+        chartData = { L: desa.l, P: desa.p };
+        KELOMPOK_HEADERS.forEach(h => {
+          chartData[h.key] = desa[h.key] || 0;
+        });
+      }
+
+      const labels = ['L', 'P', ...KELOMPOK_HEADERS.map(h => h.label)];
+      const values = [
+        chartData['L'],
+        chartData['P'],
+        ...KELOMPOK_HEADERS.map(h => chartData[h.key])
+      ];
+      const isDark = html.classList.contains('dark');
+
+      const colors = [
+        '#3b82f6', '#db2777', '#0ea5e9', '#8b5cf6', '#ec4899', '#f59e0b', 
+        '#10b981', '#6366f1', '#f97316', '#06b6d4', '#a855f7', '#ef4444', 
+        '#14b8a6', '#f43f5e', '#84cc16', '#64748b'
+      ];
+
+      if (chartInstance) {
+        chartInstance.destroy();
+      }
+
+      chartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Jumlah Hadir',
+            data: values,
+            backgroundColor: colors,
+            borderColor: colors,
+            borderWidth: 1,
+            borderRadius: 8
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false
+            },
+            tooltip: {
+              backgroundColor: isDark ? 'rgba(15, 23, 42, 0.9)' : 'rgba(255, 255, 255, 0.95)',
+              titleColor: isDark ? '#f1f5f9' : '#0f172a',
+              bodyColor: isDark ? '#cbd5e1' : '#475569',
+              borderColor: isDark ? '#334155' : '#e2e8f0',
+              borderWidth: 1,
+              padding: 12,
+              displayColors: true,
+              callbacks: {
+                label: function(context) {
+                  return ' ' + context.parsed.y + ' orang';
+                }
+              }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              grid: {
+                color: isDark ? 'rgba(148, 163, 184, 0.1)' : 'rgba(148, 163, 184, 0.2)'
+              },
+              ticks: {
+                color: isDark ? '#cbd5e1' : '#475569',
+                font: { size: 11 }
+              }
+            },
+            x: {
+              grid: {
+                display: false
+              },
+              ticks: {
+                color: isDark ? '#cbd5e1' : '#475569',
+                font: { size: 10 },
+                maxRotation: 45,
+                minRotation: 45
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // Load Data
+    async function loadData() {
+      try {
+        tableBody.innerHTML = `
+          <tr>
+            <td colspan="7" class="px-4 py-10 text-center text-slate-500">
+              <div class="flex flex-col items-center gap-2">
+                <i data-lucide="loader-2" class="w-6 h-6 animate-spin"></i>
+                <span>Memuat data...</span>
+              </div>
+            </td>
+          </tr>`;
+        lucide.createIcons();
+
+        let data;
+        if (GOOGLE_SHEET_CSV_URL && GOOGLE_SHEET_CSV_URL.includes('http')) {
+          const url = GOOGLE_SHEET_CSV_URL + (GOOGLE_SHEET_CSV_URL.includes('?') ? '&' : '?') + '_=' + Date.now();
+          const res = await fetch(url);
+          if (!res.ok) throw new Error('Gagal fetch sheet');
+          const text = await res.text();
+          const rows = parseCSV(text);
+          data = processSheetData(rows);
+        } else {
+          data = DEFAULT_DESA.map(desa => ({
+            desa: desa, tanggal: '-', tempat: '-', jam: '-', status: '-',
+            l: 0, p: 0, Pemdes: 0, BPD: 0, 'RT/RW': 0, 'A-RTM': 0, 
+            Pemuda: 0, Klp_Tani: 0, Klp_Nelayan: 0, Klp_Difabel: 0, 
+            Klp_Marginal: 0, Tokoh_Adat: 0, Tokoh_Agama: 0, Kader_Desa: 0, 
+            'Peninjau_(luar_warga_Desa)': 0, Klp_Lainnya: 0
+          }));
+        }
+
+        allData = data;
+        filteredData = data;
+        
+        // Populate desa filter - hanya desa yang selesai
+        const desaSelesai = data.filter(d => d.status.toLowerCase().trim() === 'selesai').map(d => d.desa);
+        desaFilter.innerHTML = '<option value="semua">Se-Kecamatan (Selesai)</option>' + 
+          desaSelesai.map(d => `<option value="${d}">${d}</option>`).join('');
+        
+        updateProgress(allData);
+        renderTable(filteredData);
+        updateChart();
+        
+        const now = new Date();
+        const waktuUpdate = formatWaktuIndonesia(now);
+        dataUpdateTimeEl.innerHTML = `
+          <i data-lucide="calendar-check" class="w-3.5 h-3.5"></i>
+          <span>Data terakhir diupdate: ${waktuUpdate}</span>
+        `;
+        lastUpdatedEl.innerHTML = `
+          <i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-500"></i>
+          <span>Terakhir diperbarui: ${waktuUpdate}</span>
+        `;
+        lucide.createIcons();
+
+      } catch (err) {
+        console.error('Error loading data:', err);
+        allData = DEFAULT_DESA.map(desa => ({
+          desa: desa, tanggal: '-', tempat: '-', jam: '-', status: 'Error Load',
+          l: 0, p: 0, Pemdes: 0, BPD: 0, 'RT/RW': 0, 'A-RTM': 0, 
+          Pemuda: 0, Klp_Tani: 0, Klp_Nelayan: 0, Klp_Difabel: 0, 
+          Klp_Marginal: 0, Tokoh_Adat: 0, Tokoh_Agama: 0, Kader_Desa: 0, 
+          'Peninjau_(luar_warga_Desa)': 0, Klp_Lainnya: 0
+        }));
+        filteredData = allData;
+        updateProgress(allData);
+        renderTable(filteredData);
+        dataUpdateTimeEl.innerHTML = `
+          <i data-lucide="alert-triangle" class="w-3.5 h-3.5 text-amber-500"></i>
+          <span class="text-amber-600 dark:text-amber-400">Gagal memuat dari Sheet</span>
+        `;
+        lastUpdatedEl.innerHTML = `
+          <i data-lucide="alert-triangle" class="w-3.5 h-3.5 text-amber-500"></i>
+          <span class="text-amber-600 dark:text-amber-400">Gagal memuat dari Sheet. Menggunakan data default.</span>
+        `;
+        lucide.createIcons();
+      }
+    }
+
+    // Expose toggleDetail ke global scope untuk onclick
+    window.toggleDetail = toggleDetail;
+
+    // Search Filter
+    searchInput.addEventListener('input', applyFilters);
+
+    // Filter Status Buttons
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('filter-btn-active'));
+        btn.classList.add('filter-btn-active');
+        currentFilter = btn.dataset.filter;
+        applyFilters();
+      });
+    });
+
+    // Desa filter untuk grafik
+    desaFilter.addEventListener('change', updateChart);
+
+    // Export CSV - hanya kolom utama
+    exportBtn.addEventListener('click', () => {
+      const headers = ['Desa', 'Rencana Tanggal', 'Tempat', 'Jam', 'Status', 'L', 'P'];
+      const csv = [
+        headers.join(','),
+        ...filteredData.map(row => {
+          return [
+            `"${row.desa}"`,
+            `"${row.tanggal}"`,
+            `"${row.tempat}"`,
+            `"${row.jam}"`,
+            `"${row.status}"`,
+            row.l,
+            row.p
+          ].join(',');
+        })
+      ].join('\n');
+      
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `jadwal-musrenbang-barambai-2026.csv`;
+      link.click();
+    });
+
+    // Print
+    printBtn.addEventListener('click', () => window.print());
+    
+    // Refresh
+    refreshBtn.addEventListener('click', loadData);
+
+    // Init
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      loadData();
+      
+      // Auto refresh tiap 5 menit
+      setInterval(loadData, 300000);
+    });
+  </script>
+<script>(function(){document.addEventListener("click",function(e){var a=e.target.closest("[data-product-id]");if(!a)return;e.preventDefault();var pid=a.getAttribute("data-product-id");if(pid)parent.postMessage({type:"ecto-artifact-link-click",productId:pid},"*")})})();</script>
+</body>
+</html>
